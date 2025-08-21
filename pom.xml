@@ -46,11 +46,27 @@
         </configuration>
       </plugin>
 
-      <!-- Surefire (Tests) -->
+      <!-- Tests -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
+      </plugin>
+
+      <!-- Executable JAR: Manifest mit Main-Class -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.1</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addClasspath>true</addClasspath>
+              <mainClass>de.winona.Main</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
       </plugin>
 
       <!-- JaCoCo -->
@@ -60,16 +76,12 @@
         <version>${jacoco.version}</version>
         <executions>
           <execution>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
+            <goals><goal>prepare-agent</goal></goals>
           </execution>
           <execution>
             <id>report</id>
             <phase>verify</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
+            <goals><goal>report</goal></goals>
           </execution>
         </executions>
       </plugin>
@@ -88,10 +100,7 @@
           <execution>
             <id>spotbugs-on-verify</id>
             <phase>verify</phase>
-            <goals>
-              <goal>spotbugs</goal>
-              <goal>check</goal>
-            </goals>
+            <goals><goal>spotbugs</goal><goal>check</goal></goals>
           </execution>
         </executions>
       </plugin>
@@ -107,69 +116,34 @@
 
   <reporting>
     <plugins>
-      <!-- Projektinfos -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>${maven.project.info.reports.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>summary</report>
-              <report>index</report>
-              <report>plugins</report>
-              <report>plugin-management</report>
-              <report>dependencies</report>
-            </reports>
-          </reportSet>
-        </reportSets>
+        <reportSets><reportSet><reports>
+          <report>summary</report><report>index</report>
+          <report>plugins</report><report>plugin-management</report>
+          <report>dependencies</report>
+        </reports></reportSet></reportSets>
       </plugin>
-
-      <!-- Surefire Testreport -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
         <version>${maven.surefire.report.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
+        <reportSets><reportSet><reports><report>report</report></reports></reportSet></reportSets>
       </plugin>
-
-      <!-- SpotBugs Report -->
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs.maven.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>spotbugs</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-        <configuration>
-          <effort>max</effort>
-          <threshold>Low</threshold>
-        </configuration>
+        <reportSets><reportSet><reports><report>spotbugs</report></reports></reportSet></reportSets>
+        <configuration><effort>max</effort><threshold>Low</threshold></configuration>
       </plugin>
-
-      <!-- JXR (Source Cross Reference) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>${maven.jxr.plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>jxr</report>
-              <report>test-jxr</report>
-            </reports>
-          </reportSet>
-        </reportSets>
+        <reportSets><reportSet><reports><report>jxr</report><report>test-jxr</report></reports></reportSet></reportSets>
       </plugin>
     </plugins>
   </reporting>
